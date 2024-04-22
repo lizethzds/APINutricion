@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pacientes">
+    
+    <select id="obtenerPacientesIdMedico" resultType="modelo.pojo.Paciente" parameterType="int">
+        SELECT idPaciente, nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, sexo,  
+        peso, estatura, talla, email, telefono, password  
+        FROM paciente 
+        WHERE idMedico = #{idMedico} 
+    </select>
+    
+    <insert id="registrar" parameterType="modelo.pojo.Paciente">
+        INSERT INTO paciente(nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, sexo, 
+        peso, estatura, talla, email, telefono, password, idMedico)
+        VALUES (#{nombre}, #{apellidoPaterno}, #{apellidoMaterno}, #{fechaNacimiento}, #{sexo}, 
+        #{peso}, #{estatura}, #{talla}, #{email}, #{telefono}, #{password}, #{idMedico}) 
+    </insert>
+    
+    <update id="editar" parameterType="modelo.pojo.Paciente">
+        UPDATE paciente 
+        SET nombre = #{nombre},  apellidoPaterno = #{apellidoPaterno}, apellidoMaterno = #{apellidoMaterno}, 
+        fechaNacimiento = #{fechaNacimiento}, peso = #{peso}, estatura = #{estatura}, 
+        talla = #{talla}, telefono = #{telefono}, password = #{password} 
+        WHERE idPaciente = #{idPaciente}
+    </update>
+    
+    <update id="guardarFoto" parameterType="map">
+        UPDATE paciente 
+        SET fotografia = #{foto} 
+        WHERE idPaciente = #{idPaciente}
+    </update>
+    
+    <select id="obtenerFoto" parameterType="int" resultType="modelo.pojo.Paciente" >
+        SELECT idPaciente, nombre, apellidoPaterno, apellidoMaterno, TO_BASE64(fotografia) as 'fotografiaBase64'
+        FROM paciente 
+        WHERE idPaciente = #{idPaciente}
+    </select>
+    
+    <select id="obtenerPacienteAlimentos" parameterType="int" resultType="modelo.pojo.PacienteAlimento" >
+        SELECT pa.idAlimento, a.nombre, a.calorias, a.cantidad, a.idPorcion, p.nombre AS 'porcion' 
+        FROM pacienteAlimento pa 
+        INNER JOIN alimento a ON pa.idAlimento = a.idAlimento 
+        INNER JOIN porcion p ON a.idPorcion = p.idPorcion 
+        WHERE idPaciente = #{idPaciente}
+    </select>
+    
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="autenticacion">
+    
+    <select id="loginEscritorio" resultType="modelo.pojo.Medico" parameterType="map">
+        SELECT idMedico, nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, 
+        numeroDePersonal, cedulaProfesional 
+        FROM medicos
+        WHERE numeroDePersonal = #{numeroDePersonal} AND password = #{password}
+    </select>
+    
+    <select id="loginAplicacion" resultType="modelo.pojo.Paciente" parameterType="map">
+        SELECT idPaciente, nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, 
+        peso, estatura, talla, email, telefono, idMedico, sexo 
+        FROM pacientes
+        WHERE email = #{email} AND password = #{password}
+    </select>
+    
+</mapper>
