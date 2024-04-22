@@ -29,7 +29,7 @@ public class AutenticacionWS {
     }
 
     @POST
-    @Path("loginEscritorio")
+    @Path("loginMedico")
     @Produces(MediaType.APPLICATION_JSON)
     public RespuestaLoginEscritorio loginEscritorio(@FormParam("numeroDePersonal") String numeroDePersonal, 
                                   @FormParam("password") String password){
@@ -44,7 +44,7 @@ public class AutenticacionWS {
     }
     
     @POST
-    @Path("loginAplicacion")
+    @Path("loginPaciente")
     @Produces(MediaType.APPLICATION_JSON)
     public RespuestaLoginAplicacion loginAplicacion(@FormParam("correo") String correo, 
                                   @FormParam("password") String password){

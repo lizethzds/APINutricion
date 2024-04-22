@@ -39,9 +39,12 @@ public class PacientesWS {
         }
         return pacientes;
     }
+   
     
+    //Modificar request para que reciba un JSON
     @POST
     @Path("registrar")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Mensaje registrarPaciente(@FormParam("nombre") String nombre,
                                      @FormParam("apellidoPaterno") String apellidoPaterno,
